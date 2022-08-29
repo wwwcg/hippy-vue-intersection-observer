@@ -7,7 +7,7 @@ import babel from "rollup-plugin-babel";
 export default {
   input: './index.js',
   output: {
-    name: 'HippyVueHtml',
+    name: 'HippyVueIntersectionObserver',
     file: './dist/index.js',
     format: 'umd',
     globals: {
@@ -15,5 +15,5 @@ export default {
     },
   },
   plugins: [resolve({ extensions: ['.vue'] }), commonjs(), vue(), babel()],
-  external: ['vue'],
+  external: ['vue', 'lodash/throttle'],
 };

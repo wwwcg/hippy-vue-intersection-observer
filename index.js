@@ -1,6 +1,5 @@
 import HippyVueObserver from "./src/components/hippy-vue-observer";
-import HippyIntersectionObserver from "./src/utils/HippyIntersectionObserver";
-import { HippyIntersectionEmitEvent } from "./src/utils/HippyIntersectionObserver";
+export { HippyIntersectionEmitEvent } from "./src/components/HippyIntersectionObserver";
 
 const install = function (Vue) {
     Vue.component(HippyVueObserver.name, HippyVueObserver);

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import throttle from "lodash/throttle";
+import Bus from "./bus";
 
 function restrictValueInRange(start = 0, end = 0, value = 0) {
     return Math.min(Math.max(start, value), end);
@@ -62,8 +63,8 @@ class HippyIntersectionObserver {
         };
         this.measureTarget = (target) => {
             return new Promise((resolve) => {
-                if (target) {
-                    //fixme: deal with null
+                if (target === undefined) {
+                    //do nothing
                 }
                 Vue.Native.measureInWindow(target).then((measureResult) => {
                     const boundingClientRect = {
@@ -72,8 +73,7 @@ class HippyIntersectionObserver {
                         right: measureResult.right,
                         bottom: measureResult.bottom,
                     };
-                    console.log('ray3333');
-                    console.log(target);
+                    console.log('debug: measure in window result:');
                     console.log(boundingClientRect);
                     const { intersectionRatio, intersectionRect, } = this.measureIntersection(boundingClientRect);
                     const isIntersecting = this.isIntersecting(intersectionRatio);
@@ -84,8 +84,6 @@ class HippyIntersectionObserver {
                         target,
                         isIntersecting,
                     };
-                    console.log('ray1111: handle!');
-                    console.log(targetMeasureResult);
                     resolve(targetMeasureResult);
                 });
             });
@@ -93,10 +91,10 @@ class HippyIntersectionObserver {
 
         this.handleEmitterEvent = (params) => {
             if (params.scope &&
-                params.scope.length &&
-                this.scope &&
-                this.scope.length &&
-                params.scope !== this.scope) {
+              params.scope.length &&
+              this.scope &&
+              this.scope.length &&
+              params.scope !== this.scope) {
                 return;
             }
             const measureTasks = this.targets.map((target) => {
@@ -110,8 +108,6 @@ class HippyIntersectionObserver {
                 measureResults.forEach((measureResult) => {
                     this.previousIntersectionRatios.set(measureResult.target, measureResult.intersectionRatio);
                 });
-                console.log('needReportEntries=');
-                console.log(needReportEntries);
                 if (needReportEntries && needReportEntries.length > 0) {
                     this.callback(needReportEntries);
                 }
@@ -124,18 +120,15 @@ class HippyIntersectionObserver {
         };
 
         this.needReportIntersection = (ratio, previousRatio = 0) => {
-            console.log('ray2222: handle!');
-            console.log(ratio + ',' + previousRatio);
+            console.log('debug: intersection ratio:' + ratio + ', previous:' + previousRatio);
             if (this.isIntersecting(ratio) !== this.isIntersecting(previousRatio)) {
-                console.log('yes need report!!!!');
                 return true;
             }
             return (getLastMatchedThreshold(ratio, this.thresholds) !==
-                getLastMatchedThreshold(previousRatio, this.thresholds));
+              getLastMatchedThreshold(previousRatio, this.thresholds));
         };
 
         this.measureIntersection = (boundingClientRect) => {
-
             const { window } = Vue.Native.Dimensions;
             const pageHeight = window.height;
             const pageWidth = window.width;
@@ -151,7 +144,7 @@ class HippyIntersectionObserver {
             const visibleRight = restrictValueInRange(displayAreaLeft, displayAreaRight, boundingClientRect.right);
             // 计算两个区域的面积
             const itemArea = (boundingClientRect.bottom - boundingClientRect.top) *
-                (boundingClientRect.right - boundingClientRect.left);
+              (boundingClientRect.right - boundingClientRect.left);
             const visibleArea = (visibleBottom - visibleTop) * (visibleRight - visibleLeft);
             const intersectionRect = {
                 top: visibleTop,
@@ -179,15 +172,14 @@ class HippyIntersectionObserver {
 /**
  * 触发IntersectionObserver检测，通常在onScroll时机进行触发
  * @param scope
- * @param currentApp
  */
-export function HippyIntersectionEmitEvent() {
-    return throttle((scope, currentApp) => {
-        console.log('ray: emit static ');
-        currentApp.$emit(IntersectionObserverEvent, {
+export function HippyIntersectionEmitEvent(scope) {
+    let emitFunc = throttle((scope) => {
+        Bus.$emit(IntersectionObserverEvent, {
             scope,
         });
     }, 50);
+    return emitFunc(scope);
 }
 
 export default HippyIntersectionObserver;

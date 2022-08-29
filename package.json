@@ -1,6 +1,6 @@
 {
-  "name": "my-test-intersection-observer",
-  "version": "0.0.7",
+  "name": "hippy-vue-intersection-observer",
+  "version": "0.0.2",
   "description": "IntersectionObserver for hippy-vue",
   "author": "wwwcg",
   "scripts": {
@@ -15,8 +15,7 @@
   "main": "dist/index.js",
   "dependencies": {
     "core-js": "^3.8.3",
-    "lodash": "^4.17.21",
-    "vue": "^3.2.37"
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -40,6 +39,8 @@
     "rollup-plugin-babel": "3.0.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-vue": "^6.0.0"
+    "rollup-plugin-vue": "^6.0.0",
+    "vue": "^3.2.37",
+    "@hippy/vue": "latest"
   }
 }

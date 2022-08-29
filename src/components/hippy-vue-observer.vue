@@ -1,6 +1,6 @@
 <script>
-import HippyIntersectionObserver from "../utils/HippyIntersectionObserver";
-import Bus from '../utils/bus.js';
+import HippyIntersectionObserver from "./HippyIntersectionObserver";
+import Bus from "./bus";
 
 export default {
   name: "hippy-vue-observer",
