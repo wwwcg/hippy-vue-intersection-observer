@@ -2,7 +2,22 @@
   "name": "hippy-vue-intersection-observer",
   "version": "0.0.2",
   "description": "IntersectionObserver for hippy-vue",
+  "main": "dist/index.js",
   "author": "wwwcg",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wwwcg/hippy-vue-intersection-observer.git"
+  },
+  "keywords": [
+    "hippy",
+    "hippy-vue",
+    "intersection-observer"
+  ],
+  "bugs": {
+    "url": "https://github.com/wwwcg/hippy-vue-intersection-observer/issues"
+  },
+  "homepage": "https://github.com/wwwcg/hippy-vue-intersection-observer#readme",
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "lint": "eslint ./src",
@@ -12,9 +27,18 @@
     "prepare": "npx husky install",
     "pub": "yarn build && yarn build:version && npm publish"
   },
-  "main": "dist/index.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
   "dependencies": {
-    "core-js": "^3.8.3",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
