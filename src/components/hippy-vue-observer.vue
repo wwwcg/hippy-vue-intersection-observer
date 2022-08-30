@@ -1,9 +1,9 @@
 <script>
-import HippyIntersectionObserver from "./HippyIntersectionObserver";
-import Bus from "./bus";
+import HippyIntersectionObserver from './HippyIntersectionObserver';
+import Bus from './bus';
 
 export default {
-  name: "hippy-vue-observer",
+  name: 'hippy-vue-observer',
   props: ['scope', 'rootMargin', 'thresholds', 'throttle'],
   data() {
     return {
@@ -17,11 +17,11 @@ export default {
       thresholds: this.thresholds,
       throttle: this.throttle,
     };
-    const callback = entries => {
-      entries.forEach(entry => {
-        this.$emit("on-change", entry);
+    const callback = (entries) => {
+      entries.forEach((entry) => {
+        this.$emit('on-change', entry);
       });
-    }
+    };
     this.observer = new HippyIntersectionObserver(Bus, this.scope, callback, options);
     this.observer.observe(this.$slots.default[0].elm);
     this.isMounted = true;
@@ -31,8 +31,7 @@ export default {
     this.isMounted = false;
   },
   render(h) {
-    return h('div', {collapsable: "false"}, this.$slots.default);
-  }
-}
+    return h('div', { collapsable: 'false' }, this.$slots.default);
+  },
+};
 </script>
-
