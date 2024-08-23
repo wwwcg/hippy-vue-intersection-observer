@@ -1,0 +1,22 @@
+# 组件名
+name: hippy-vue-intersection-observer
+# 组件展示名 选填 填写后替代英文名进行展示
+displayName: HippyVue-IntersectionObserver组件
+# 组件版本
+version: 0.0.2
+# 配置版本 v2为RAFT2.0
+apiVersion: npm/v1
+platform: hippy
+# 团队名称
+team: '端服务中台'
+# 组件介绍摘要
+summary: 'hippy-vue-intersection-observer is a [Hippy-Vue](https://hippyjs.org/#/hippy-vue/introduction) implementation of [Intersection Observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API). '
+# 组件详细介绍
+description: 'It provides an easier way to detect view exposure in complex application.'
+# 负责人
+owner:
+    - raycgwang
+author:
+    - raycgwang
+
+hippyFramework: Vue
